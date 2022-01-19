@@ -1,4 +1,4 @@
-﻿namespace Common.Abstractions
+﻿namespace UI.Abstractions
 {
     public interface IOutput
     {

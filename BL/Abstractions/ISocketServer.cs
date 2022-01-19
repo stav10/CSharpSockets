@@ -4,6 +4,6 @@
     {
         public void Bind();
         public void Listen();
-        public ISocketClient Accept();
+        public ISocketClient<byte[]> Accept();
     }
 }

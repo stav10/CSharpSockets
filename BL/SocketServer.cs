@@ -20,7 +20,7 @@ namespace BL
             while (true)
             {
                 ISocketClient<byte[]> client = _server.Accept();
-                Task t = new Task(() => HandleClient(client));
+                var t = new Task(() => HandleClient(client));
                 t.Start();
             }
         }
