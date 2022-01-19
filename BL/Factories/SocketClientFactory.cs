@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 
-namespace BL
+namespace BL.Factories
 {
     public class SocketClientFactory
     {
