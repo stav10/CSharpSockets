@@ -3,7 +3,7 @@ using Common.Abstractions;
 
 namespace UI
 {
-    public class ConsoleStringOutput : IOutput
+    public class ConsoleOutput : IOutput
     {
         public void Print<T>(params T[] values)
         {

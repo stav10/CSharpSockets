@@ -1,4 +1,5 @@
-﻿using System.Net.Sockets;
+﻿using System;
+using System.Net.Sockets;
 using Common.Abstractions;
 using BL.Abstractions;
 
@@ -8,7 +9,7 @@ namespace BL
     {
         private readonly IOutput _output;
         private readonly IInput<string> _input;
-        private IConvertor<string, byte[]> _convertor;
+        private readonly IConvertor<string, byte[]> _convertor;
         private readonly Socket _socket;
 
         public SocketClient(
@@ -25,8 +26,9 @@ namespace BL
 
         public void Recive()
         {
-            var buffer = new byte [1024];
-            _socket.Receive(buffer);
+            int length = ReciveLength();
+            var buffer = new byte[length];
+            _socket.Receive(buffer, 4, length, SocketFlags.None);
             _output.Print(buffer);
         }
 
@@ -36,8 +38,16 @@ namespace BL
             bool isSucceeded = _convertor.TryConvert(message, out byte[] buffer);
             if (isSucceeded)
             {
+                _socket.Send(BitConverter.GetBytes(buffer.Length));
                 _socket.Send(buffer);
             }
+        }
+
+        private int ReciveLength()
+        {
+            var lengthChunk = new byte[4];
+            _socket.Receive(lengthChunk);
+            return BitConverter.ToInt32(lengthChunk);
         }
     }
 }
