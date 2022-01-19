@@ -1,7 +1,7 @@
 ﻿namespace BL.Abstractions
 {
-    public interface IConvertor
+    public interface IConvertor<T, K>
     {
-        public K TryConvert<T, K>(T input, K output, out bool success);
+        public bool TryConvert(T input, out K output);
     }
 }

@@ -1,6 +1,6 @@
-﻿using System.Text;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 using Common.Abstractions;
+using BL.Abstractions;
 
 namespace BL
 {
@@ -8,12 +8,18 @@ namespace BL
     {
         private readonly IOutput _output;
         private readonly IInput<string> _input;
+        private IConvertor<string, byte[]> _convertor;
         private readonly Socket _socket;
 
-        public SocketClient(IInput<string> input, IOutput output, Socket socket)
+        public SocketClient(
+                        IInput<string> input,
+                        IOutput output,
+                        Socket socket,
+                        IConvertor<string, byte[]> convertor)
         {
             _input = input;
             _output = output;
+            _convertor = convertor;
             _socket = socket;
         }
 
@@ -27,7 +33,11 @@ namespace BL
         public void Send()
         {
             string message = _input.Read();
-            _socket.Send(Encoding.UTF8.GetBytes(message));
+            bool isSucceeded = _convertor.TryConvert(message, out byte[] buffer);
+            if (isSucceeded)
+            {
+                _socket.Send(buffer);
+            }
         }
     }
 }
