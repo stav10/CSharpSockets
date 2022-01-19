@@ -4,21 +4,19 @@ using BL.Abstractions;
 
 namespace BL
 {
-    public class SocketClientFactory
+    public class SocketServerFactory
     {
-        public SocketClientFactory(string ip, int port)
+        public SocketServerFactory(int port)
         {
-            IP = ip;
             Port = port;
         }
-        
-        public string IP { get; set; }
+
         public int Port { get; set; }
-        
+
         public ISocketClient<byte[]> Create()
         {
             var socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
-            var ipEndPoint = new IPEndPoint(IPAddress.Parse(IP), Port);
+            var ipEndPoint = new IPEndPoint(IPAddress.Any, Port);
             return new SocketClient(socket, ipEndPoint);
         }
     }

@@ -11,7 +11,7 @@ namespace UI
     {
         static void Main(string[] args)
         {
-            var factory = new SocketClientFactory();
+            var factory = new SocketClientFactory(args[0], int.Parse(args[1]));
             ISocketClient<byte[]> client = factory.Create();
             IOutput output = new ConsoleOutput();
             IInput<string> input = new ConsoleInput();
