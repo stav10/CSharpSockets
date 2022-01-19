@@ -3,9 +3,9 @@ using Common.Abstractions;
 
 namespace UI
 {
-    public class ConsoleOutput : IOutput<string>
+    public class ConsoleStringOutput : IOutput
     {
-        public void Print(params string[] values)
+        public void Print<T>(params T[] values)
         {
             foreach (var value in values)
             {
