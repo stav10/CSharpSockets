@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 
@@ -20,14 +21,20 @@ namespace BL
             while (true)
             {
                 Socket client = _server.Accept();
-                Task t = new Task(() => HandleClinet(client));
+                Task t = new Task(() => HandleClient(client));
                 t.Start();
             }
         }
 
-        private void HandleClinet(Socket client)
+        private void HandleClient(Socket client)
         {
-
+            var lengthChunk = new byte[4];
+            client.Receive(lengthChunk);
+            int length = BitConverter.ToInt32(lengthChunk);
+            var buffer = new byte[length];
+            client.Receive(buffer, 4, length, SocketFlags.None);
+            client.Send(lengthChunk);
+            client.Send(buffer);
         }
     }
 }
