@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Sockets;
-using Common.Abstractions;
 using BL.Abstractions;
 
 namespace BL
@@ -9,12 +8,7 @@ namespace BL
     {
         private readonly Socket _socket;
 
-        public SocketClient(
-                        IInput<string> input,
-                        IOutput output,
-                        IConvertor<string, byte[]> sendConvertor,
-                        IConvertor<byte[], string> reciveConvertor,
-                        Socket socket)
+        public SocketClient(Socket socket)
         {
             _socket = socket;
         }
