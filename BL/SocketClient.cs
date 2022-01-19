@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Sockets;
 using BL.Abstractions;
 
@@ -8,9 +9,10 @@ namespace BL
     {
         private readonly Socket _socket;
 
-        public SocketClient(Socket socket)
+        public SocketClient(Socket socket, IPEndPoint ipEndPoint)
         {
             _socket = socket;
+            _socket.Connect(ipEndPoint);
         }
 
         public byte[] Receive()

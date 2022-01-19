@@ -10,8 +10,7 @@ namespace BL
         {
             var socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
             var ipEndPoint = new IPEndPoint(IPAddress.Loopback, 5000);
-            socket.Connect(ipEndPoint);
-            return new SocketClient(socket);
+            return new SocketClient(socket, ipEndPoint);
         }
     }
 }

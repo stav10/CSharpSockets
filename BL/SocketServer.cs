@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using BL.Abstractions;
@@ -9,9 +10,10 @@ namespace BL
     {
         private readonly ISocketServer _server;
 
-        public SocketServer(ISocketServer socket)
+        public SocketServer(ISocketServer socket, IPEndPoint ipEndPoint)
         {
             _server = socket;
+            _server.Bind(ipEndPoint);
         }
 
         public void Start()
