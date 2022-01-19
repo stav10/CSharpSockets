@@ -1,7 +1,7 @@
 ﻿namespace Common.Abstractions
 {
-    public interface IOutput<T>
+    public interface IOutput
     {
-        public void Print(params T [] values);
+        public void Print<T>(params T [] values);
     }
 }
