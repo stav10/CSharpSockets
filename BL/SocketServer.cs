@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using BL.Abstractions;
 
 namespace BL
 {
     public class SocketServer
     {
-        private readonly Socket _server;
+        private readonly ISocketServer _server;
 
-        public SocketServer(Socket socket, IPEndPoint ipEndPoint)
+        public SocketServer(ISocketServer socket)
         {
             _server = socket;
-            _server.Bind(ipEndPoint);
         }
 
         public void Start()
@@ -20,20 +19,15 @@ namespace BL
             _server.Listen();
             while (true)
             {
-                Socket client = _server.Accept();
+                ISocketClient<byte[]> client = _server.Accept();
                 Task t = new Task(() => HandleClient(client));
                 t.Start();
             }
         }
 
-        private void HandleClient(Socket client)
+        private void HandleClient(ISocketClient<byte[]> client)
         {
-            var lengthChunk = new byte[4];
-            client.Receive(lengthChunk);
-            int length = BitConverter.ToInt32(lengthChunk);
-            var buffer = new byte[length];
-            client.Receive(buffer, 4, length, SocketFlags.None);
-            client.Send(lengthChunk);
+            var buffer = client.Receive();
             client.Send(buffer);
         }
     }

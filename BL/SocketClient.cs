@@ -5,7 +5,7 @@ using BL.Abstractions;
 
 namespace BL
 {
-    public class SocketClient
+    public class SocketClient: ISocketClient<byte[]>
     {
         private readonly IOutput _output;
         private readonly IInput<string> _input;
@@ -27,27 +27,18 @@ namespace BL
             _socket = socket;
         }
 
-        public void Recive()
+        public byte[] Receive()
         {
             int length = ReciveLength();
             var buffer = new byte[length];
             _socket.Receive(buffer, 4, length, SocketFlags.None);
-            bool isSucceeded = _reciveConvertor.TryConvert(buffer, out string message);
-            if (isSucceeded)
-            {
-                _output.Print(message);
-            }
+            return buffer;
         }
 
-        public void Send()
+        public void Send(byte[] buffer)
         {
-            string message = _input.Read();
-            bool isSucceeded = _sendConvertor.TryConvert(message, out byte[] buffer);
-            if (isSucceeded)
-            {
-                _socket.Send(BitConverter.GetBytes(buffer.Length));
-                _socket.Send(buffer);
-            }
+            _socket.Send(BitConverter.GetBytes(buffer.Length));
+            _socket.Send(buffer);
         }
 
         private int ReciveLength()
