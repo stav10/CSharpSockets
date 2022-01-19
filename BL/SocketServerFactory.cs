@@ -1,6 +1,6 @@
-﻿using System.Net;
+﻿using BL.Abstractions;
+using System.Net;
 using System.Net.Sockets;
-using BL.Abstractions;
 
 namespace BL
 {

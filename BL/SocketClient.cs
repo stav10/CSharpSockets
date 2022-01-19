@@ -1,11 +1,11 @@
-﻿using System;
+﻿using BL.Abstractions;
+using System;
 using System.Net;
 using System.Net.Sockets;
-using BL.Abstractions;
 
 namespace BL
 {
-    public class SocketClient: ISocketClient<byte[]>
+    public class SocketClient : ISocketClient<byte[]>
     {
         private readonly Socket _socket;
 

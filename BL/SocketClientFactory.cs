@@ -1,6 +1,6 @@
-﻿using System.Net;
+﻿using BL.Abstractions;
+using System.Net;
 using System.Net.Sockets;
-using BL.Abstractions;
 
 namespace BL
 {
@@ -11,10 +11,10 @@ namespace BL
             IP = ip;
             Port = port;
         }
-        
+
         public string IP { get; set; }
         public int Port { get; set; }
-        
+
         public ISocketClient<byte[]> Create()
         {
             var socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
