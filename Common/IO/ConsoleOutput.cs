@@ -1,7 +1,7 @@
 ﻿using System;
-using UI.Abstractions;
+using Common.Abstractions;
 
-namespace UI.IO
+namespace Common.IO
 {
     public class ConsoleOutput : IOutput
     {

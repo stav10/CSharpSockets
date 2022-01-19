@@ -9,6 +9,11 @@ namespace BL
     {
         private readonly Socket _socket;
 
+        public SocketClient(Socket socket)
+        {
+            _socket = socket;
+        }
+
         public SocketClient(Socket socket, IPEndPoint ipEndPoint)
         {
             _socket = socket;
@@ -19,7 +24,7 @@ namespace BL
         {
             int length = ReciveLength();
             var buffer = new byte[length];
-            _socket.Receive(buffer, 4, length, SocketFlags.None);
+            _socket.Receive(buffer);
             return buffer;
         }
 

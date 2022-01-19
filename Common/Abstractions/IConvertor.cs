@@ -1,4 +1,4 @@
-﻿namespace BL.Abstractions
+﻿namespace Common.Abstractions
 {
     public interface IConvertor<T, K>
     {

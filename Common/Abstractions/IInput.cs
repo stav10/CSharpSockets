@@ -1,4 +1,4 @@
-﻿namespace UI.Abstractions
+﻿namespace Common.Abstractions
 {
     public interface IInput<T>
     {

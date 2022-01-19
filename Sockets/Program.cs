@@ -2,8 +2,8 @@
 using BL.Abstractions;
 using System;
 using System.Text;
-using UI.Abstractions;
-using UI.IO;
+using Common.Abstractions;
+using Common.IO;
 
 namespace UI
 {
@@ -15,13 +15,12 @@ namespace UI
             ISocketClient<byte[]> client = factory.Create();
             IOutput output = new ConsoleOutput();
             IInput<string> input = new ConsoleInput();
-
             while (true)
             {
                 string message = input.Read();
                 client.Send(Encoding.UTF8.GetBytes(message));
                 byte[] buffer = client.Receive();
-                string response = BitConverter.ToString(buffer);
+                string response = Encoding.UTF8.GetString(buffer);
                 output.Print(response);
             }
         }

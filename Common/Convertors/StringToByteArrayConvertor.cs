@@ -1,7 +1,7 @@
-﻿using BL.Abstractions;
+﻿using Common.Abstractions;
 using System.Text;
 
-namespace BL.Convertors
+namespace Common.Convertors
 {
     public class StringToByteArrayConvertor : IConvertor<string, byte[]>
     {

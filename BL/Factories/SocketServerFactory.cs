@@ -13,11 +13,11 @@ namespace BL.Factories
 
         public int Port { get; set; }
 
-        public ISocketClient<byte[]> Create()
+        public ISocketServer Create()
         {
             var socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
             var ipEndPoint = new IPEndPoint(IPAddress.Any, Port);
-            return new SocketClient(socket, ipEndPoint);
+            return new SocketServer(socket, ipEndPoint);
         }
     }
 }
