@@ -7,7 +7,10 @@ namespace UI
     {
         public void Print(params string[] values)
         {
-            throw new NotImplementedException();
+            foreach (var value in values)
+            {
+                Console.WriteLine(value);
+            }
         }
     }
 }
