@@ -9,18 +9,21 @@ namespace BL
     {
         private readonly IOutput _output;
         private readonly IInput<string> _input;
-        private readonly IConvertor<string, byte[]> _convertor;
+        private readonly IConvertor<string, byte[]> _sendConvertor;
+        private readonly IConvertor<byte[], string> _reciveConvertor;
         private readonly Socket _socket;
 
         public SocketClient(
                         IInput<string> input,
                         IOutput output,
-                        Socket socket,
-                        IConvertor<string, byte[]> convertor)
+                        IConvertor<string, byte[]> sendConvertor,
+                        IConvertor<byte[], string> reciveConvertor,
+                        Socket socket)
         {
             _input = input;
             _output = output;
-            _convertor = convertor;
+            _sendConvertor = sendConvertor;
+            _reciveConvertor = reciveConvertor;
             _socket = socket;
         }
 
@@ -29,13 +32,17 @@ namespace BL
             int length = ReciveLength();
             var buffer = new byte[length];
             _socket.Receive(buffer, 4, length, SocketFlags.None);
-            _output.Print(buffer);
+            bool isSucceeded = _reciveConvertor.TryConvert(buffer, out string message);
+            if (isSucceeded)
+            {
+                _output.Print(message);
+            }
         }
 
         public void Send()
         {
             string message = _input.Read();
-            bool isSucceeded = _convertor.TryConvert(message, out byte[] buffer);
+            bool isSucceeded = _sendConvertor.TryConvert(message, out byte[] buffer);
             if (isSucceeded)
             {
                 _socket.Send(BitConverter.GetBytes(buffer.Length));
