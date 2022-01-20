@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net;
-using System.Configuration;
 using BL.Abstractions;
 
 namespace BL

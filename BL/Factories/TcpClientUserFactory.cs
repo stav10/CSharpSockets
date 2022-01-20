@@ -1,7 +1,7 @@
-﻿using BL.Abstractions;
-using BL.TcpClients;
-using System.Net;
+﻿using System.Net;
 using System.Net.Sockets;
+using BL.Abstractions;
+using BL.TcpClients;
 
 namespace BL.Factories
 {

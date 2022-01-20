@@ -1,5 +1,5 @@
-﻿using BL.Abstractions;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using BL.Abstractions;
 
 namespace BL
 {

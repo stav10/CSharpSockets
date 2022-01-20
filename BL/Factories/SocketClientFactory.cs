@@ -1,7 +1,7 @@
-﻿using BL.Abstractions;
-using BL.Sockets;
-using System.Net;
+﻿using System.Net;
 using System.Net.Sockets;
+using BL.Abstractions;
+using BL.Sockets;
 
 namespace BL.Factories
 {

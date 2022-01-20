@@ -1,6 +1,6 @@
-﻿using Common.Abstractions;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Common.Abstractions;
 
 namespace Common
 {
