@@ -1,7 +1,8 @@
 ﻿namespace Common.Abstractions
 {
-    public interface IInput<T>
+    public interface IInput
     {
-        public T Read();
+        public string ReadString();
+        public bool TryRead<T>(IConvertor<string, T> convertor, out T value);
     }
 }

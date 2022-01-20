@@ -11,7 +11,6 @@ namespace BL.TcpClients
         public TcpClientUser(TcpClient socket)
         {
             _socket = socket;
-
         }
 
         public void Connect(IPEndPoint ipEndPoint)

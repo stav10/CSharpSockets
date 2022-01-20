@@ -8,12 +8,10 @@ namespace BL
     public class Client : IClient<byte[]>
     {
         private readonly IConnectionClient<byte[]> _socket;
-        private readonly int _lengthBytesCount;
 
         public Client(IConnectionClient<byte[]> client)
         {
             _socket = client;
-            _lengthBytesCount = int.Parse(ConfigurationManager.AppSettings["lengthBytesCount"]);
         }
 
         public Client(IConnectionClient<byte[]> client, IPEndPoint ipEndPoint)
@@ -38,7 +36,7 @@ namespace BL
 
         private int ReciveLength()
         {
-            var lengthChunk = new byte[_lengthBytesCount];
+            var lengthChunk = new byte[sizeof(int)];
             _socket.Receive(lengthChunk);
             return BitConverter.ToInt32(lengthChunk);
         }

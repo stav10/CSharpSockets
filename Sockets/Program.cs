@@ -4,6 +4,7 @@ using BL.Factories;
 using Common;
 using Common.Abstractions;
 using Common.IO;
+using Common.Convertors;
 
 namespace UI
 {
@@ -15,15 +16,17 @@ namespace UI
             (IConnectionClient<byte[]> socket, var ip) = factory.Create();
             var client = new Client(socket, ip);
             IOutput output = new ConsoleOutput();
-            IInput<string> input = new ConsoleInput();
+            IInput input = new ConsoleInput();
+            IConvertor<string, int> convertor = new StringToIntConvertor();
             var serializer = new Serializer();
             while (true)
             {
                 output.Print("Please enter the person's name");
-                string name = input.Read();
+                string name = input.ReadString();
                 output.Print("Please enter the person's age");
-                string message = input.Read();
-                client.Send(serializer.Desrialize(message));
+                bool isConverted = input.TryRead(convertor, out int age);
+                var person = new Person(name, age);
+                client.Send(serializer.Desrialize(person));
                 byte[] buffer = client.Receive();
                 object response = serializer.Serialize(buffer);
                 output.Print(response);
