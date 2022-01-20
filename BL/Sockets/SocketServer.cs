@@ -4,7 +4,7 @@ using System.Net.Sockets;
 
 namespace BL.Sockets
 {
-    public class SocketServer : IConnectionServer<byte[]>, IBindable
+    public class SocketServer : ISocketServer<byte[]>
     {
         private readonly Socket _socket;
 

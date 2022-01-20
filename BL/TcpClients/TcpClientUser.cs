@@ -4,18 +4,19 @@ using System.Net.Sockets;
 
 namespace BL.TcpClients
 {
-    public class SocketClient : IConnectionClient<byte[]>
+    public class TcpClientUser : IConnectionClient<byte[]>
     {
-        private readonly Socket _socket;
+        private readonly TcpClient _socket;
+        private NetworkStream _stream;
 
-        public SocketClient(Socket socket)
+        public TcpClientUser(TcpClient socket)
         {
             _socket = socket;
         }
 
         public void Connect(EndPoint ipEndPoint)
         {
-            _socket.Connect(ipEndPoint);
+            _stream = _socket.GetStream();
         }
 
         public int Receive(byte[] buffer)

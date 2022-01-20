@@ -11,23 +11,17 @@ namespace BL.TcpClients
         public TcpListenerServer(TcpListener socket, IPEndPoint ipEndPoint)
         {
             _socket = socket;
-            _socket.Bind(ipEndPoint);
         }
 
         public IClient<byte[]> Accept()
         {
-            var newSocket = new SocketClient(_socket.Accept());
+            var newSocket = new TcpClientUser(_socket.AcceptTcpClient());
             return new Client(newSocket);
-        }
-
-        public void Bind(EndPoint endPoint)
-        {
-            _socket.Bind(endPoint);
         }
 
         public void Listen()
         {
-            _socket.Listen();
+            _socket.Start();
         }
     }
 }
