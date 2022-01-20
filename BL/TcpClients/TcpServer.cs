@@ -1,14 +1,13 @@
 ﻿using BL.Abstractions;
-using System.Net;
 using System.Net.Sockets;
 
 namespace BL.TcpClients
 {
-    public class TcpListenerServer : IConnectionServer<byte[]>
+    public class TcpServer : IConnectionServer<byte[]>
     {
         private readonly TcpListener _socket;
 
-        public TcpListenerServer(TcpListener socket, IPEndPoint ipEndPoint)
+        public TcpServer(TcpListener socket)
         {
             _socket = socket;
         }

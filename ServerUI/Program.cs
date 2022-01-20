@@ -9,8 +9,8 @@ namespace ServerUI
     {
         static void Main(string[] args)
         {
-            var factory = new SocketServerFactory(int.Parse(args[0]));
-            IConnectionServer<byte[]> socket = factory.Create();
+            var factory = new TcpServerFactory(int.Parse(args[0]));
+            var socket = factory.Create();
             IServer server = new Server(socket);
             server.Start();
         }

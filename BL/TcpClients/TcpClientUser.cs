@@ -7,26 +7,26 @@ namespace BL.TcpClients
     public class TcpClientUser : IConnectionClient<byte[]>
     {
         private readonly TcpClient _socket;
-        private NetworkStream _stream;
 
         public TcpClientUser(TcpClient socket)
         {
             _socket = socket;
+
         }
 
-        public void Connect(EndPoint ipEndPoint)
+        public void Connect(IPEndPoint ipEndPoint)
         {
-            _stream = _socket.GetStream();
+            _socket.Connect(ipEndPoint);
         }
 
         public int Receive(byte[] buffer)
         {
-            return _stream.Read(buffer);
+            return _socket.GetStream().Read(buffer, 0, buffer.Length);
         }
 
         public void Send(byte[] buffer)
         {
-            _stream.Write(buffer);
+            _socket.GetStream().Write(buffer, 0, buffer.Length);
         }
     }
 }

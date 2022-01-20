@@ -4,7 +4,6 @@ using BL.Factories;
 using Common;
 using Common.Abstractions;
 using Common.IO;
-using System.Text;
 
 namespace UI
 {
@@ -12,7 +11,7 @@ namespace UI
     {
         static void Main(string[] args)
         {
-            var factory = new SocketClientFactory(args[0], int.Parse(args[1]));
+            var factory = new TcpClientUserFactory(args[0], int.Parse(args[1]));
             (IConnectionClient<byte[]> socket, var ip) = factory.Create();
             var client = new Client(socket, ip);
             IOutput output = new ConsoleOutput();
@@ -20,10 +19,11 @@ namespace UI
             var serializer = new Serializer();
             while (true)
             {
-                int age = int.Parse(input.Read());
+                output.Print("Please enter the person's name");
                 string name = input.Read();
-                var person = new Person(name, age);
-                client.Send(serializer.Desrialize(person));
+                output.Print("Please enter the person's age");
+                string message = input.Read();
+                client.Send(serializer.Desrialize(message));
                 byte[] buffer = client.Receive();
                 object response = serializer.Serialize(buffer);
                 output.Print(response);
