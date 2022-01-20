@@ -2,7 +2,7 @@
 {
     public enum CommandType
     {
-        echo,
-        screenShot
+        Echo,
+        ScreenShot
     }
 }
