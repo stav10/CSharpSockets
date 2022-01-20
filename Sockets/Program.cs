@@ -1,6 +1,7 @@
 ﻿using BL;
 using BL.Abstractions;
 using BL.Factories;
+using Common;
 using Common.Abstractions;
 using Common.IO;
 using System.Text;
@@ -16,12 +17,15 @@ namespace UI
             var client = new Client(socket, ip);
             IOutput output = new ConsoleOutput();
             IInput<string> input = new ConsoleInput();
+            var serializer = new Serializer<Person>();
             while (true)
             {
-                string message = input.Read();
-                client.Send(Encoding.UTF8.GetBytes(message));
+                int age = int.Parse(input.Read());
+                string name = input.Read();
+                Person person = new Person(name, age);
+                client.Send(serializer.Desrialize(person));
                 byte[] buffer = client.Receive();
-                string response = Encoding.UTF8.GetString(buffer);
+                Person response = serializer.Serialize(buffer);
                 output.Print(response);
             }
         }
