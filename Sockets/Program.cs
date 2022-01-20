@@ -8,7 +8,7 @@ using BL;
 using BL.Abstractions;
 using BL.Factories;
 
-namespace UI
+namespace ClientUI
 {
     public class Program
     {

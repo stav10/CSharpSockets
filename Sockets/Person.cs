@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UI
+namespace ClientUI
 {
     [Serializable]
     public class Person
