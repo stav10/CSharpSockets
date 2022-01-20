@@ -1,5 +1,8 @@
-﻿namespace UI
+﻿using System;
+
+namespace UI
 {
+    [Serializable]
     public class Person
     {
         private string _name;

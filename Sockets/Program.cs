@@ -22,7 +22,7 @@ namespace UI
             {
                 int age = int.Parse(input.Read());
                 string name = input.Read();
-                Person person = new Person(name, age);
+                var person = new Person(name, age);
                 client.Send(serializer.Desrialize(person));
                 byte[] buffer = client.Receive();
                 Person response = serializer.Serialize(buffer);
