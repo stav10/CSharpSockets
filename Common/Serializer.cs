@@ -4,9 +4,9 @@ using System.IO;
 
 namespace Common
 {
-    public class Serializer<T> : ISerializer<T, byte[]>
+    public class Serializer : ISerializer<object, byte[]>
     {
-        public byte[] Desrialize(T instance)
+        public byte[] Desrialize(object instance)
         {
             var bf = new BinaryFormatter();
             using (var ms = new MemoryStream())
@@ -16,7 +16,7 @@ namespace Common
             }
         }
 
-        public T Serialize(byte[] buffer)
+        public object Serialize(byte[] buffer)
         {
             using (var memStream = new MemoryStream())
             {
@@ -24,7 +24,7 @@ namespace Common
                 memStream.Write(buffer, 0, buffer.Length);
                 memStream.Seek(0, SeekOrigin.Begin);
                 var obj = binForm.Deserialize(memStream);
-                return (T)obj;
+                return obj;
             }
         }
     }

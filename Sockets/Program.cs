@@ -17,7 +17,7 @@ namespace UI
             var client = new Client(socket, ip);
             IOutput output = new ConsoleOutput();
             IInput<string> input = new ConsoleInput();
-            var serializer = new Serializer<Person>();
+            var serializer = new Serializer();
             while (true)
             {
                 int age = int.Parse(input.Read());
@@ -25,7 +25,7 @@ namespace UI
                 var person = new Person(name, age);
                 client.Send(serializer.Desrialize(person));
                 byte[] buffer = client.Receive();
-                Person response = serializer.Serialize(buffer);
+                object response = serializer.Serialize(buffer);
                 output.Print(response);
             }
         }

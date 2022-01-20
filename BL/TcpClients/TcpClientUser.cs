@@ -2,9 +2,9 @@
 using System.Net;
 using System.Net.Sockets;
 
-namespace BL.Sockets
+namespace BL.TcpClients
 {
-    public class SocketClient : IConnectionClient<byte[]>, IBindable
+    public class SocketClient : IConnectionClient<byte[]>
     {
         private readonly Socket _socket;
 
