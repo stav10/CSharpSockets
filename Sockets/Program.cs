@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net.Sockets;
 using Common;
 using Common.Abstractions;
@@ -23,20 +24,16 @@ namespace ClientUI
                 IInput input = new ConsoleInput();
                 IConvertor<string, int> convertor = new StringToIntConvertor();
                 var serializer = new Serializer();
+                var commands = Enum.GetValues(typeof(CommandType));
                 while (true)
                 {
-                    output.Print("Please enter the person's name");
-                    string name = input.ReadString();
-                    output.Print("Please enter the person's age");
-                    bool isConverted = input.TryRead(convertor, out int age);
-                    if (isConverted)
+                    output.Print("Enter your command:");
+                    for (int i = 0; i < commands.Length; i++)
                     {
-                        var person = new Person(name, age);
-                        client.Send(serializer.Desrialize(person));
-                        byte[] buffer = client.Receive();
-                        object response = serializer.Serialize(buffer);
-                        output.Print(response);
+                        Console.WriteLine($"{i + 1}: {commands.GetValue(i)}");
                     }
+                    input.TryRead(convertor, out int commandIndex);
+                    Console.WriteLine($"selected: {commandIndex}");
                 }
             }
             catch (SocketException e)
