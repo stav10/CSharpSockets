@@ -1,11 +1,10 @@
 ﻿using BL.Abstractions;
 using System.Net;
-using System.Net.Sockets;
 using System.Threading.Tasks;
 
 namespace BL
 {
-    public class Server  : IServer
+    public class Server : IServer
     {
         private readonly IConnectionServer<byte[]> _server;
 

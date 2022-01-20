@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace BL.Abstractions
+﻿namespace BL.Abstractions
 {
     public interface IServer
     {

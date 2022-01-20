@@ -1,11 +1,10 @@
 ﻿using BL.Abstractions;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading.Tasks;
 
-namespace BL
+namespace BL.Sockets
 {
-    public class SocketServer: IConnectionServer<byte[]>
+    public class SocketServer : IConnectionServer<byte[]>
     {
         private readonly Socket _socket;
 
@@ -17,7 +16,7 @@ namespace BL
 
         public IClient<byte[]> Accept()
         {
-            SocketClient newSocket = new SocketClient(_socket.Accept());
+            var newSocket = new SocketClient(_socket.Accept());
             return new Client(newSocket);
         }
 

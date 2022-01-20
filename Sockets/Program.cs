@@ -1,10 +1,9 @@
-﻿using System;
-using BL;
-using BL.Factories;
+﻿using BL;
 using BL.Abstractions;
-using System.Text;
+using BL.Factories;
 using Common.Abstractions;
 using Common.IO;
+using System.Text;
 
 namespace UI
 {
@@ -14,7 +13,7 @@ namespace UI
         {
             var factory = new SocketClientFactory(args[0], int.Parse(args[1]));
             (IConnectionClient<byte[]> socket, var ip) = factory.Create();
-            Client client = new Client(socket, ip);
+            var client = new Client(socket, ip);
             IOutput output = new ConsoleOutput();
             IInput<string> input = new ConsoleInput();
             while (true)

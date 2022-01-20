@@ -1,9 +1,8 @@
 ﻿using BL.Abstractions;
-using System;
 using System.Net;
 using System.Net.Sockets;
 
-namespace BL
+namespace BL.Sockets
 {
     public class SocketClient : IConnectionClient<byte[]>
     {

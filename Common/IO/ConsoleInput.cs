@@ -1,5 +1,5 @@
-﻿using System;
-using Common.Abstractions;
+﻿using Common.Abstractions;
+using System;
 
 namespace Common.IO
 {
