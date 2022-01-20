@@ -1,4 +1,5 @@
-﻿using BL.Factories;
+﻿using BL;
+using BL.Factories;
 using BL.Abstractions;
 
 
@@ -9,7 +10,8 @@ namespace ServerUI
         static void Main(string[] args)
         {
             var factory = new SocketServerFactory(int.Parse(args[0]));
-            ISocketServer server = factory.Create();
+            IConnectionServer<byte[]> socket = factory.Create();
+            IServer server = new Server(socket);
             server.Start();
         }
     }

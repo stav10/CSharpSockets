@@ -15,11 +15,11 @@ namespace BL.Factories
         public string IP { get; set; }
         public int Port { get; set; }
 
-        public ISocketClient<byte[]> Create()
+        public (IConnectionClient<byte[]>, IPEndPoint) Create()
         {
             var socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
             var ipEndPoint = new IPEndPoint(IPAddress.Parse(IP), Port);
-            return new SocketClient(socket, ipEndPoint);
+            return (new SocketClient(socket), ipEndPoint);
         }
     }
 }

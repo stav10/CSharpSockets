@@ -13,7 +13,7 @@ namespace BL.Factories
 
         public int Port { get; set; }
 
-        public ISocketServer Create()
+        public IConnectionServer<byte[]> Create()
         {
             var socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
             var ipEndPoint = new IPEndPoint(IPAddress.Any, Port);

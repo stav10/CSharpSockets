@@ -2,7 +2,7 @@
 
 namespace BL.Abstractions
 {
-    public interface ISocketServer
+    public interface IServer
     {
         public void Start();
     }

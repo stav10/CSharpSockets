@@ -5,7 +5,7 @@ using System.Net.Sockets;
 
 namespace BL
 {
-    public class SocketClient : ISocketClient<byte[]>
+    public class SocketClient : IConnectionClient<byte[]>
     {
         private readonly Socket _socket;
 
@@ -14,31 +14,19 @@ namespace BL
             _socket = socket;
         }
 
-        public SocketClient(Socket socket, IPEndPoint ipEndPoint)
+        public void Connect(EndPoint ipEndPoint)
         {
-            _socket = socket;
             _socket.Connect(ipEndPoint);
         }
 
-        public byte[] Receive()
+        public int Receive(byte[] buffer)
         {
-            int length = ReciveLength();
-            var buffer = new byte[length];
-            _socket.Receive(buffer);
-            return buffer;
+            return _socket.Receive(buffer);
         }
 
         public void Send(byte[] buffer)
         {
-            _socket.Send(BitConverter.GetBytes(buffer.Length));
             _socket.Send(buffer);
-        }
-
-        private int ReciveLength()
-        {
-            var lengthChunk = new byte[4];
-            _socket.Receive(lengthChunk);
-            return BitConverter.ToInt32(lengthChunk);
         }
     }
 }

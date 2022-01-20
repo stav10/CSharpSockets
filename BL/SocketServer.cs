@@ -5,34 +5,30 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public class SocketServer: ISocketServer
+    public class SocketServer: IConnectionServer<byte[]>
     {
-        private readonly Socket _server;
+        private readonly Socket _socket;
 
         public SocketServer(Socket socket, IPEndPoint ipEndPoint)
         {
-            _server = socket;
-            _server.Bind(ipEndPoint);
+            _socket = socket;
+            _socket.Bind(ipEndPoint);
         }
 
-        public void Start()
+        public IClient<byte[]> Accept()
         {
-            _server.Listen();
-            while (true)
-            {
-                ISocketClient<byte[]> client = new SocketClient(_server.Accept());
-                var t = new Task(() => HandleClient(client));
-                t.Start();
-            }
+            SocketClient newSocket = new SocketClient(_socket.Accept());
+            return new Client(newSocket);
         }
 
-        private void HandleClient(ISocketClient<byte[]> client)
+        public void Bind(EndPoint endPoint)
         {
-            while (true)
-            {
-                var buffer = client.Receive();
-                client.Send(buffer);
-            }
+            _socket.Bind(endPoint);
+        }
+
+        public void Listen()
+        {
+            _socket.Listen();
         }
     }
 }
