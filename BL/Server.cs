@@ -13,12 +13,6 @@ namespace BL
             _server = socket;
         }
 
-        public Server(IConnectionServer<byte[]> socket, IPEndPoint ipEndPoint)
-        {
-            _server = socket;
-            _server.Bind(ipEndPoint);
-        }
-
         public void Start()
         {
             _server.Listen();

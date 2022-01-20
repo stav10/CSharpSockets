@@ -21,12 +21,12 @@ namespace BL.TcpClients
 
         public int Receive(byte[] buffer)
         {
-            return _socket.Receive(buffer);
+            return _stream.Read(buffer);
         }
 
         public void Send(byte[] buffer)
         {
-            _socket.Send(buffer);
+            _stream.Write(buffer);
         }
     }
 }

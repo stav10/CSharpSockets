@@ -4,7 +4,7 @@ using System.Net.Sockets;
 
 namespace BL.Sockets
 {
-    public class SocketServer : ISocketServer<byte[]>
+    public class SocketServer : IConnectionServer<byte[]>
     {
         private readonly Socket _socket;
 
@@ -14,10 +14,6 @@ namespace BL.Sockets
             _socket.Bind(ipEndPoint);
         }
 
-        public void Bind(EndPoint endPoint)
-        {
-            _socket.Bind(endPoint);
-        }
         public void Listen()
         {
             _socket.Listen();
